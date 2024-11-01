@@ -2,7 +2,7 @@ import json
 from openpyxl import Workbook
 
 # Укажите путь к файлу JSON с двойными обратными слешами или префиксом `r`
-json_file_path = r"C:\Users\artem.venikov\Downloads\Untitled-5.json"
+json_file_path = r"C:\Users\Downloads\Untitled-5.json"
 
 # Чтение JSON из файла
 with open(json_file_path, "r") as json_file:

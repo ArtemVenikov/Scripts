@@ -34,7 +34,7 @@ for host in hosts:
         row_index += 1
 
 # Сохранение файла
-xls_file_path = r"C:\Users\artem.venikov\Downloads\zbx_export_hosts.xlsx"
+xls_file_path = r"C:\Users\Downloads\zbx_export_hosts.xlsx"
 workbook.save(xls_file_path)
 
 print(f"Результаты экспортированы в файл: {xls_file_path}")

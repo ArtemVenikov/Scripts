@@ -1,0 +1,76 @@
+### Рекомендации
+
+- Проверяйте настройки через команду iptables -L -n -v перед применением.
+- Убедитесь, что у вас открыт доступ к вашему VPS, иначе возможно утратить возможность подключения.
+- Рассмотрите возможность использования других портов для SSH для повышения безопасности.
+- Используйте ключи SSH вместо паролей для дополнительной защиты.
+
+ 
+
+### 1. Сохранение правил
+
+# Для Debian/Ubuntu
+iptables-save > /etc/iptables/rules.v4
+
+# Для CentOS
+service iptables save
+
+### 2. Запуск iptables
+
+# Проверка статуса
+iptables -L -n -v
+
+ 
+
+### 3. (Опционально) Разрешение ICMP (ping)
+
+iptables -A INPUT -p icmp -j ACCEPT  # Разрешить ping
+
+ 
+
+### 4. Разрешение на ответы
+
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT  # Разрешить входящие ответы на исходящие соединения
+
+ 
+
+### 5. Разрешение SSH
+
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT  # Разрешить SSH подключение
+iptables -A INPUT -p icmp -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --dport 1234 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --dport 8080 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+ 
+
+### 6. Разрешение локального трафика
+
+iptables -A INPUT -i lo -j ACCEPT  # Разрешить трафик из локального интерфейса
+
+ 
+
+### 7. Установка политики по умолчанию
+
+iptables -P INPUT DROP     # Блокировать все входящие соединения по умолчанию
+iptables -P FORWARD DROP   # Блокировать пересылаемые соединения
+iptables -P OUTPUT ACCEPT   # Разрешить все исходящие соединения
+
+ 
+
+### 8. Сброс правил
+
+iptables -F         # Сброс всех правил
+iptables -X         # Удаление всех пользовательских цепочек
+
+#####################
+Если у вас есть доступ к серверу 1 и он работает на Linux, вы можете использовать **iptables** для перенаправления трафика. Используйте следующие команды:
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination <IP_Сервера_2>:80
+sudo iptables -A FORWARD -p tcp -d <IP_Сервера_2> --dport 80 -j ACCEPT
+
+Не забудьте заменить <IP_Сервера_2> на фактический IP-адрес второго сервера.

@@ -1,0 +1,10 @@
+Поиск ключевого слова в тексте вывода
+
+var text = value;
+
+if (text.includes('Rutoken')) {
+   return 1;
+} else {
+   return 0;
+}
+

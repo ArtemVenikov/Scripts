@@ -1,0 +1,22 @@
+Подсчет количества конкретных ключевых значение
+
+ 
+
+const ipLines = value;
+
+/// Функция для подсчета количества вхождений "IpAddress"
+function countIpAddressOccurrences(lines) {
+   var count = 0;
+   // Разделяем строки на массив по переводу строки
+   var linesArray = lines.split('\n');
+   for (var i = 0; i < linesArray.length; i++) {
+       count += (linesArray[i].match(/IpAddress/g) || []).length;
+   }
+   return count;
+}
+
+// Получаем количество вхождений "IpAddress"
+var ipAddressCount = countIpAddressOccurrences(ipLines);
+
+// Выводим результат
+return ipAddressCount;

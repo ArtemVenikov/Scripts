@@ -1,0 +1,5 @@
+// Zabbix preprocessing script - при отсутствии данных записывать 0 в значение метрки
+
+value = value || 0;
+
+return value;

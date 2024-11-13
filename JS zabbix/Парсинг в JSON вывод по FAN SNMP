@@ -1,0 +1,70 @@
+Парсиннг в JSON
+
+ 
+
+System fan 1a : 9375 RPM
+System fan 1b : 9000 RPM
+System fan 2a : 9500 RPM
+System fan 2b : 8875 RPM
+System fan 3a : 9375 RPM
+System fan 3b : 8750 RPM
+System fan 4a : 9500 RPM
+System fan 4b : 9000 RPM
+System fan 5a : 9625 RPM
+System fan 5b : 8750 RPM
+
+ 
+
+ 
+
+const fanData = value;
+
+var lines = fanData.trim().split('\n');
+var fans = [];
+
+for (var i = 0; i < lines.length; i++) {
+   var line = lines[i];
+   var parts = line.split(' : ');
+   // Изменяем здесь, чтобы извлечь только окончание fanName
+   var fanName = parts[0].trim().split(' ').pop(); // Берем последнее слово (например, "1a")
+   fans.push({
+       fanName: fanName,
+       speed: parseInt(parts[1].replace(' RPM', ''), 10)
+   });
+}
+
+var jsonOutput = JSON.stringify(fans, null, 2);
+return(jsonOutput);
+
+ 
+
+ИЛИ
+
+ 
+
+const fanData = 
+System fan 1a : 9375 RPM
+System fan 1b : 9000 RPM
+System fan 2a : 9500 RPM
+System fan 2b : 8875 RPM
+System fan 3a : 9375 RPM
+System fan 3b : 8750 RPM
+System fan 4a : 9500 RPM
+System fan 4b : 9000 RPM
+System fan 5a : 9625 RPM
+System fan 5b : 8750 RPM;
+
+var lines = fanData.trim().split('\n');
+var fans = [];
+
+for (var i = 0; i < lines.length; i++) {
+   var line = lines[i];
+   var parts = line.split(' : ');
+   fans.push({
+       fanName: parts[0].trim(),
+       speed: parseInt(parts[1].replace(' RPM', ''), 10)
+   });
+}
+
+var jsonOutput = JSON.stringify(fans, null, 2);
+console.log(jsonOutput);

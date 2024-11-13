@@ -1,0 +1,10 @@
+//Поиск 200 кода в HEADER если нашел то 1, если нет то 0
+
+var res=value.toString().trim().substring(9, 12);
+if (res==="200") {
+return 1
+}
+else 
+{
+return 0
+}

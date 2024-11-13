@@ -1,4 +1,5 @@
-## ## парсим JSON zabbix export хостов
+## ## парсим JSON zabbix export хостов в ЭКСЕЛЬ
+
 
 import json
 import pandas as pd

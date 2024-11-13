@@ -1,0 +1,29 @@
+// Проверяем, что значение item'а Zabbix представляет собой дату в корректном формате
+
+if (value && Date.parse(value)) {
+
+    var endDate = new Date(value);
+
+ 
+
+    // Получаем текущую дату
+
+    var currentDate = new Date();
+
+ 
+
+    // Рассчитываем разницу в днях между текущей датой и датой окончания сертификата
+
+    var differenceInTime = endDate.getTime() - currentDate.getTime();
+
+    var differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+
+ 
+
+    return differenceInDays;
+
+} else {
+
+    return "Invalid date value"; // Возвращаем сообщение об ошибке, если значение некорректное
+
+}
